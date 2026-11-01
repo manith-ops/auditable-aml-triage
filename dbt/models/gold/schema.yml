@@ -15,3 +15,22 @@ models:
       - name: fan_in
         tests:
           - not_null
+
+  - name: gold_transaction_flags
+    description: "One row per transaction: rule flags and the time split (train/validation/test)."
+    columns:
+      - name: raw_row_id
+        tests:
+          - unique
+          - not_null
+      - name: split
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['train', 'validation', 'test']
+      - name: rules_fired
+        tests:
+          - accepted_values:
+              arguments:
+                values: [0, 1, 2]
