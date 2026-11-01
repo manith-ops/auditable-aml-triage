@@ -110,7 +110,13 @@ python scripts/make_sample_data.py
 cd dbt && dbt build --target ci --vars '{raw_trans_path: ../data/sample/sample_trans.csv}'
 ```
 
-A single wrapper command for the full rebuild is still to do.
+**One command for the full rebuild** (after the download, with the virtual environment active and `pip install -r requirements-ml.txt` done for the model and app packages):
+
+```bash
+make all      # dbt build with all 26 tests, pattern link, model training, alert queue
+```
+
+`make all` re-ran end to end and reproduced the same validation numbers (PR-AUC 0.0899) and a byte-identical demo sample. The one-time test-set evaluation is deliberately not part of it (`make evaluate`). `make ci` runs what GitHub Actions runs.
 
 ## Design decisions
 
