@@ -71,6 +71,12 @@ cols = ["alert_id", "raw_row_id", "transaction_ts", "from_account_key", "to_acco
         "score", "reasons", "model_version", LABEL]
 Path("artifacts").mkdir(exist_ok=True)
 top[cols].to_csv("artifacts/alerts.csv", index=False)
+
+# A small public-demo sample: the top 200 alerts, WITHOUT the true label.
+# It contains rows derived from the IBM AMLworld data, so it ships with demo/DATA_NOTICE.md (CDLA-Sharing 1.0).
+Path("demo").mkdir(exist_ok=True)
+top.head(200)[[c for c in cols if c != LABEL]].to_csv("demo/alerts_demo.csv", index=False)
+print("saved demo/alerts_demo.csv: top 200 alerts, no labels")
 print(f"saved artifacts/alerts.csv: {len(top)} alerts from the {SPLIT} days")
 print(f"laundering among them (evaluation only): {int(top[LABEL].sum())}")
 print("\nfirst alert:")

@@ -13,12 +13,18 @@ import streamlit as st
 sys.path.insert(0, str(Path(__file__).parent))   # so "import audit" finds app/audit.py
 import audit
 
-ALERTS_FILE = "artifacts/alerts.csv"
+FULL_FILE = "artifacts/alerts.csv"               # the full local queue (git-ignored)
+DEMO_FILE = "demo/alerts_demo.csv"               # the small public sample (committed)
+IS_DEMO = not Path(FULL_FILE).exists()           # on a hosted copy only the sample exists
+ALERTS_FILE = DEMO_FILE if IS_DEMO else FULL_FILE
 LABELS = {"escalate": "Escalate to case", "dismiss": "Dismiss (false positive)", "more_info": "Request more information"}
 
 st.set_page_config(page_title="AML alert queue", layout="wide")
 st.title("AML alert queue")
 st.caption("Prototype on public synthetic data. Personal project. Scores are model output; the analyst decides.")
+if IS_DEMO:
+    st.info("Demo mode: a sample of 200 alerts. The audit log on this hosted copy is temporary and resets when the app restarts. "
+            "Data: IBM AMLworld synthetic transactions, CDLA-Sharing 1.0 (see demo/DATA_NOTICE.md).")
 
 
 @st.cache_data                                   # read the file once, not on every click
