@@ -27,5 +27,7 @@ jobs:
 
       - name: Build models and run tests
         working-directory: dbt                   # run the next command inside the dbt/ folder
-        run: dbt build --target ci --vars '{raw_trans_path: ../data/sample/sample_trans.csv}'
+        run: |
+          dbt build --target ci --vars '{raw_trans_path: ../data/sample/sample_trans.csv}'
+        # "run: |" = everything indented below is plain text, so the colon in the vars is not read as YAML
         # dbt build = run all models AND all tests; the job turns red if any test fails
