@@ -1,0 +1,9 @@
+# dbt connection settings: tells dbt WHERE to run (a DuckDB file on this laptop)
+# No secrets here, so it is safe to commit.
+aml_triage:                      # must match `profile:` in dbt_project.yml
+  target: dev                    # default environment
+  outputs:
+    dev:
+      type: duckdb               # use the dbt-duckdb adapter
+      path: ../data/aml.duckdb   # the database file; path is relative to the dbt/ folder; *.duckdb is git-ignored
+      threads: 4                 # how many models dbt may build in parallel

@@ -1,0 +1,34 @@
+# Column-level data-quality tests for the silver layer.
+# `dbt test` runs each one as SQL; a test FAILS if it finds any bad rows.
+version: 2
+
+models:
+  - name: silver_transactions
+    description: "Cleaned, typed transactions. One row per bronze row; no rows dropped."
+    columns:
+      - name: raw_row_id
+        description: "Row position in the source file; traces each row back to bronze."
+        tests:
+          - unique        # no two rows share an ID
+          - not_null
+      - name: transaction_ts
+        tests:
+          - not_null      # a NULL here means the timestamp text could not be parsed
+      - name: from_account_key
+        tests:
+          - not_null
+      - name: to_account_key
+        tests:
+          - not_null
+      - name: amount_received
+        tests:
+          - not_null      # a NULL here means try_cast could not convert the text to a number
+      - name: amount_paid
+        tests:
+          - not_null
+      - name: is_laundering
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]   # the label must be 0 or 1 only

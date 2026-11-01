@@ -1,0 +1,21 @@
+# dbt project settings (dbt reads this file first)
+name: aml_triage                 # project name, used inside dbt
+version: "1.0.0"
+config-version: 2                # dbt's config file format version
+
+profile: aml_triage              # which connection to use; defined in profiles.yml (same name)
+
+model-paths: ["models"]          # where our SQL models live
+test-paths: ["tests"]            # custom SQL tests
+macro-paths: ["macros"]          # reusable SQL snippets
+target-path: "target"            # build output (git-ignored)
+clean-targets: ["target"]        # what `dbt clean` deletes
+
+models:
+  aml_triage:
+    bronze:
+      +materialized: table       # bronze = raw data loaded as-is, stored as a table
+    silver:
+      +materialized: table       # silver = cleaned, renamed, typed
+    gold:
+      +materialized: table       # gold = analysis-ready tables and features
