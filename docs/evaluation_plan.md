@@ -25,7 +25,7 @@ Committed before any test-day result was computed, so the choices below cannot b
 | Combined | rule-flagged rows first (ranked by model score), then the rest by model score, same total k |
 
 ## Breakdowns
-- **Recall by laundering pattern**, using the pattern file that ships with the IBM data (to be matched to transactions).
+- **Recall by laundering pattern**, using the pattern file that ships with the IBM data. It lists 3,209 of the 5,177 laundering transactions (370 attempts, 8 types). The other 1,968 have no listed pattern; they are reported as their own group, "no pattern listed", with no assumption about why.
 - **Error analysis:** the 20 highest-scored false positives and the 20 laundering transactions with the lowest scores. For each, say what the model saw and why it may have been wrong.
 
 ## Uncertainty
