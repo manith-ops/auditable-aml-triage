@@ -5,29 +5,14 @@ The test days (Sep 9-18) are never loaded into a metric here; they are kept for 
 """
 from pathlib import Path
 
-import duckdb                                    # reads the gold tables built by dbt
 import numpy as np                               # fast number arrays
 import xgboost as xgb                            # the gradient-boosted tree model
 from sklearn.metrics import average_precision_score   # PR-AUC (area under the precision-recall curve)
 
-FEATURES = [                                     # the model inputs; the label is_laundering is NOT one of them
-    "amount_paid", "hour_of_day", "payment_format",
-    "sender_sent_before", "sender_sent_amount_before", "sender_fan_out_before",
-    "receiver_received_before", "receiver_received_amount_before", "receiver_fan_in_before",
-]
-LABEL = "is_laundering"
+from common import FEATURES, LABEL, load_frame   # shared feature list and loader (scripts/common.py)
 
-# ---- 1. Load: join the features with the split and the rule flags (SQL, run by DuckDB) ----
-con = duckdb.connect("data/aml.duckdb", read_only=True)
-df = con.sql("""
-    select f.*, g.split, g.rule_ach                    -- features plus the split and the ACH rule flag
-    from gold_transaction_features f
-    join gold_transaction_flags g using (raw_row_id)   -- same transaction in both tables
-""").df()                                        # .df() = turn the SQL result into a pandas DataFrame (a table in Python)
-df["payment_format"] = df["payment_format"].astype("category")   # tell XGBoost this column is a category, not a number
-for col in FEATURES:
-    if col != "payment_format":
-        df[col] = df[col].astype(float)          # amounts arrive as decimals; the model wants plain floats
+# ---- 1. Load: features + split + rule flag, one row per transaction ----
+df = load_frame()
 
 # ---- 2. Split by time (the split column was defined once, in dbt) ----
 train = df[df["split"] == "train"]               # a boolean filter: keep only the rows where split == 'train'
