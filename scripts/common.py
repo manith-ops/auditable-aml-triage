@@ -16,6 +16,7 @@ def load_frame():
         select f.*, g.split, g.rule_ach                -- features plus the split and the ACH rule flag
         from gold_transaction_features f
         join gold_transaction_flags g using (raw_row_id)
+        order by f.raw_row_id                          -- fixed row order, so every run sees the data identically
     """).df()                                    # .df() = turn the SQL result into a pandas DataFrame
     df["payment_format"] = df["payment_format"].astype("category")   # a category column, not a number
     for col in FEATURES:
