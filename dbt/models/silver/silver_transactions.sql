@@ -5,7 +5,7 @@
 select
     raw_row_id,                                                      -- carried over so every row traces back to the file
 
-    strptime(timestamp, '%Y/%m/%d %H:%M')  as transaction_ts,        -- text -> real timestamp (file format: 2022/09/01 00:20)
+    try_strptime(timestamp, '%Y/%m/%d %H:%M') as transaction_ts,     -- text -> real timestamp (file format: 2022/09/01 00:20); NULL if unparseable, so the test catches it instead of the build crashing
 
     from_bank,                                                       -- bank codes stay text (leading zeros matter: "010")
     from_account,

@@ -5,7 +5,7 @@ select
     row_number() over ()   as raw_row_id,        -- position in the file; lets us trace any row back to the source
     *                                             -- all CSV columns, renamed below
 from read_csv(
-    '../data/raw/HI-Small_Trans.csv',             -- path is relative to the dbt/ folder
+    '{{ var("raw_trans_path", "../data/raw/HI-Small_Trans.csv") }}',  -- path relative to dbt/; a dbt variable, so the demo can point at another file
     header = true,                                -- first line holds the column names ...
     names = [                                     -- ... but we replace them: the file has TWO columns called "Account"
         'timestamp',

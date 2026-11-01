@@ -9,3 +9,4 @@ target/
 logs/
 mlruns/
 .user.yml
+data/bad_batch/
