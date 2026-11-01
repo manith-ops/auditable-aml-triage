@@ -7,6 +7,10 @@ aml_triage:                      # must match `profile:` in dbt_project.yml
       type: duckdb               # use the dbt-duckdb adapter
       path: ../data/aml.duckdb   # the database file; path is relative to the dbt/ folder; *.duckdb is git-ignored
       threads: 4                 # how many models dbt may build in parallel
+    ci:                          # environment used by GitHub Actions (CI) and for local CI checks
+      type: duckdb
+      path: ../data/aml_ci.duckdb    # separate database file again
+      threads: 4
     bad_batch:                   # second environment, used only for the bad-batch demo
       type: duckdb
       path: ../data/aml_bad.duckdb   # a SEPARATE database, so the real one is never touched

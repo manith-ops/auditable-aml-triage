@@ -10,3 +10,4 @@ logs/
 mlruns/
 .user.yml
 data/bad_batch/
+data/sample/
