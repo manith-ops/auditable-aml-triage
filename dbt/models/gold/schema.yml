@@ -1,0 +1,17 @@
+# Column-level tests for the gold layer.
+version: 2
+
+models:
+  - name: gold_account_features
+    description: "One row per account: counts, fan-in/fan-out and totals over the whole period."
+    columns:
+      - name: account_key
+        tests:
+          - unique       # exactly one row per account
+          - not_null
+      - name: fan_out
+        tests:
+          - not_null
+      - name: fan_in
+        tests:
+          - not_null
