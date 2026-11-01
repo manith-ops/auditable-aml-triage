@@ -16,6 +16,20 @@ models:
         tests:
           - not_null
 
+  - name: gold_transaction_features
+    description: "One row per transaction; account-history features built only from earlier rows (no leakage)."
+    columns:
+      - name: raw_row_id
+        tests:
+          - unique
+          - not_null
+      - name: sender_sent_before
+        tests:
+          - not_null
+      - name: receiver_received_before
+        tests:
+          - not_null
+
   - name: gold_transaction_flags
     description: "One row per transaction: rule flags and the time split (train/validation/test)."
     columns:
