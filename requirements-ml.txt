@@ -1,0 +1,9 @@
+# Extra packages for the model and the analyst app (not needed by CI, which only builds the dbt pipeline).
+# Install after requirements.txt:  pip install -r requirements-ml.txt
+pandas==3.1.0
+numpy==2.5.4
+pyarrow==25.0.1
+scikit-learn==1.9.1
+xgboost==3.4.1
+mlflow==3.17.2
+streamlit==1.66.1
