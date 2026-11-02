@@ -32,7 +32,7 @@ Recall by laundering pattern, the 95% intervals and the full tables are in the R
 - At small alert budgets it finds a minority of laundering (13% and 34%). It ranks almost everything inside the top third of rows.
 - Weak groups: laundering with no listed pattern, non-ACH laundering, and small ACH payments (see [error analysis](error_analysis.md)).
 - Features describe single accounts' history. They do not describe relationships between sender and receiver.
-- One run, one split. Stability on other time windows is unknown.
+- One run, one split. Stability on other time windows is unknown. The test period (Sep 9-18) is effectively two days: Sep 9-10 hold 99.9% of its rows.
 - SHAP reasons are model explanations, not legal adverse-action codes.
 - **Fairness:** the data has no demographic attributes, so no fairness audit was done. This is a gap, not a clean result.
 
