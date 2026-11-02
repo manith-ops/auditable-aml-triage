@@ -2,6 +2,8 @@
 
 A personal project: a tested, documented data pipeline for anti-money-laundering (AML) transaction data, built as a **prototype on public synthetic data**.
 
+**Live demo:** [analyst alert queue](https://manith-ops-auditable-aml-triage-appstreamlit-app-8womei.streamlit.app/) (200 sample alerts on public synthetic data; the audit log there is temporary and resets on restart; the free host may need a moment to wake up).
+
 > **Status: work in progress.** Built: data pipeline, data-quality tests, CI, two rules, a time-split XGBoost model with SHAP reasons, MLflow tracking, and an analyst queue with an append-only audit log. The final test-set evaluation is done (scored once). **Not built yet:** LLM case summaries.
 
 ## Problem
