@@ -6,6 +6,8 @@ A personal project: a tested, documented data pipeline for anti-money-laundering
 
 ![Analyst queue demo: ranked alerts, model reasons, a recorded decision and the append-only audit log](docs/demo.gif)
 
+![Architecture and results overview](docs/architecture.png)
+
 > **Status: work in progress.** Built: data pipeline, data-quality tests, CI, two rules, a time-split XGBoost model with SHAP reasons, MLflow tracking, and an analyst queue with an append-only audit log. The final test-set evaluation is done (scored once). **Not built yet:** LLM case summaries.
 
 ## Problem
